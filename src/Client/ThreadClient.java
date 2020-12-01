@@ -11,22 +11,22 @@ public class ThreadClient extends Thread {
 	
 	public ThreadClient(ServeurIntf serveur) throws IOException{
 		this.in = serveur;
-		msg = serveur.getMessages(0);
+		msg = serveur.getMsg(0);
 	}
 	
 	public void run() {
 		try {
 			ArrayList<String> bufferMsg = new ArrayList<String>(0);
 			while(true) {
-				bufferMsg = in.getMessages(msg.size());
+				bufferMsg = in.getMsg(msg.size());
 				for(int i = 0;i<bufferMsg.size();i++) {
 					msg.add(bufferMsg.get(i));
 					System.out.println(bufferMsg.get(i));
+					System.out.print(">");
 				}
-				//TimeUnit.MINUTES.sleep(1);
 			}
-		} catch (IOException /*| InterruptedException*/ e) {
-			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Erreur du traitement du message : "+ e);;
 		}
 	}
 }

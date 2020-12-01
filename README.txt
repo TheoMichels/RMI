@@ -1,3 +1,3 @@
 README 
 
-test4
+Bienvenue dans le projet chat RMI

@@ -13,31 +13,28 @@ public class MainClient {
 	Scanner sc;
 	
 	public MainClient() throws MalformedURLException, RemoteException, NotBoundException {
+		
 		Serveur = (ServeurIntf)Naming.lookup("//localhost/RmiServer");
 		sc = new Scanner(System.in);
 		try {
 			new ThreadClient(Serveur).start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Echec du lancement du thread : "+ e);;
 		}
 	}
 	
 	public static void main(String args[]) throws Exception {
 		
-
         MainClient chatClient=new MainClient();  
         String user;
         
         System.out.println(chatClient.Serveur.messageBienvenue());
-        System.out.println("Entrez un nom d'utilisateur : ");
+        System.out.println("Donnez votre nom : ");
         user = chatClient.sc.nextLine();
-        
+		System.out.print(">");
+
         while(true) {
-        	System.out.println(">");
-        	chatClient.Serveur.ecrireMessage(chatClient.sc.nextLine(),user);
+        	chatClient.Serveur.ecrireMsg(chatClient.sc.nextLine(),user);
         }
-        
-        
     }
 }

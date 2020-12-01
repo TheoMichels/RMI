@@ -14,22 +14,22 @@ public class MainServeur extends UnicastRemoteObject implements ServeurIntf{
 	super(0);
 	}
 	
-	@Override
 	public String messageBienvenue() throws RemoteException{
-		return "Bienvenue!";
+		return "Bienvenue dans le chat !";
 	}
 	
 	 public static void main(String args[]) throws Exception {
 	        try { 
 	            LocateRegistry.createRegistry(1099); 
 	        } catch (RemoteException e) {
+	        	System.out.println("Erreur de la connexion à distance : "+ e);
 	        }
 	        MainServeur chatServeur = new MainServeur();
 	        Naming.rebind("//localhost/RmiServer", chatServeur);
 	        System.out.println("Serveur pret!");
 	    }
 	 
-	 public ArrayList<String> getMessages(int lastMessagePos) throws RemoteException {
+	 public ArrayList<String> getMsg(int lastMessagePos) throws RemoteException {
 	
 		 ArrayList<String> msg = new ArrayList<String>(0);
 			for(int i = lastMessagePos;i<messages.size();i++) {
@@ -39,7 +39,7 @@ public class MainServeur extends UnicastRemoteObject implements ServeurIntf{
 			return msg;
 		}
 
-		public void ecrireMessage(String msg,String user) throws RemoteException {
+		public void ecrireMsg(String msg,String user) throws RemoteException {
 			messages.add(user + " : " + msg);
 		}
 }

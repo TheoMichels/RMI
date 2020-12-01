@@ -10,8 +10,8 @@ public interface ServeurIntf extends Remote {
 
 	public String messageBienvenue() throws RemoteException;
 	
-	public ArrayList<String> getMessages(int lastMessageKey) throws RemoteException;
+	public ArrayList<String> getMsg(int lastMessageKey) throws RemoteException;
 	
-	public void ecrireMessage(String msg,String user) throws RemoteException;
-
+	public void ecrireMsg(String msg,String user) throws RemoteException;
+	
 }
