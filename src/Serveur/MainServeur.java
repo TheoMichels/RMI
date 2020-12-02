@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class MainServeur extends UnicastRemoteObject implements ServeurIntf{
 	private static final long serialVersionUID = 1L;
-	static String msg;
 	
 	public MainServeur() throws RemoteException{
 	super(0);
@@ -20,7 +19,7 @@ public class MainServeur extends UnicastRemoteObject implements ServeurIntf{
 	}
 	
 	 public static void main(String args[]) throws Exception {
-		 // connexion distante au RMI
+		 // creation du registre local pour la connexion au RMI
 	        try { 
 	            LocateRegistry.createRegistry(1099); 
 	        } catch (RemoteException e) {
@@ -31,18 +30,20 @@ public class MainServeur extends UnicastRemoteObject implements ServeurIntf{
 	        System.out.println("Serveur pret!");
 	    }
 	 
-	 // methode permettant de retourner l'ArrayList contenant les messages du chat, en prenant en entree la position du dernier message envoye
-	 public ArrayList<String> getMsg(int lastMessagePos) throws RemoteException {
+	 // methode permettant de retourner une ArrayList contenant le dernier message du chat (avec le user qui l'a envoyé), en prenant en entree la position du dernier message envoye
+	 public ArrayList<String> getMsg(int dernierePosition) throws RemoteException {
 	
 		 ArrayList<String> msg = new ArrayList<String>(0);
-			for(int i = lastMessagePos; i<messages.size(); i++) {
-				msg.add(messages.get(i));
+		 // recuparation du dernier messager en prenant a partir de la position du dernier message 
+			for(int i = dernierePosition; i<chaineMsg.size(); i++) {
+				// on donne a "msg" le dernier message de l'ArrayList 
+				msg.add(chaineMsg.get(i));
 			}
 			return msg;
 		}
-	 	
-	 	// methode permettant d'envoyer le message proprement
-		public void ecrireMsg(String msg,String user) throws RemoteException {
-			messages.add(user + " : " + msg);
+	 
+	 	// methode permettant d'ajouter le message d'un utilisateur à l'ArrayList
+		public void ecrireMsg(String msg,String utilisateur) throws RemoteException {
+			chaineMsg.add(utilisateur + " : " + msg);
 		}
 }

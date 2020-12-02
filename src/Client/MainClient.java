@@ -19,20 +19,19 @@ public class MainClient {
 		try {
 			new ThreadClient(Serveur).start();
 		} catch (IOException e) {
-			System.out.println("Echec du lancement du thread : "+ e);;
+			System.out.println("Echec du lancement du client : "+ e);;
 		}
 	}
 	
 	public static void main(String args[]) throws Exception {
-		
-        MainClient chatClient=new MainClient();  
-        String utilisateur;
-        
+		// instanciation du client, message de bienvenue et insertion de son nom
+        MainClient chatClient = new MainClient();  
         System.out.println(chatClient.Serveur.messageBienvenue());
         System.out.println("Donnez votre nom : ");
-        utilisateur = chatClient.sc.nextLine();
+        String utilisateur = chatClient.sc.nextLine();
 		System.out.print(">");
 
+		// boucle qui execute la methode ecrireMsg, elle s'execute des que l'utilisateur entre un message et le valide 
         while(true) {
         	chatClient.Serveur.ecrireMsg(chatClient.sc.nextLine(), utilisateur);
         }
