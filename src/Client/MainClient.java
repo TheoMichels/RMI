@@ -26,15 +26,15 @@ public class MainClient {
 	public static void main(String args[]) throws Exception {
 		
         MainClient chatClient=new MainClient();  
-        String user;
+        String utilisateur;
         
         System.out.println(chatClient.Serveur.messageBienvenue());
         System.out.println("Donnez votre nom : ");
-        user = chatClient.sc.nextLine();
+        utilisateur = chatClient.sc.nextLine();
 		System.out.print(">");
 
         while(true) {
-        	chatClient.Serveur.ecrireMsg(chatClient.sc.nextLine(),user);
+        	chatClient.Serveur.ecrireMsg(chatClient.sc.nextLine(), utilisateur);
         }
     }
 }
